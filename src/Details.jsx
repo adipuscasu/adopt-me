@@ -9,7 +9,7 @@ const Details = () => {
   if (results.isLoading) {
     return (
       <div className="loading-pane">
-        <h2 className="loader">🌀</h2>
+        <h2 className="loader">⚙</h2>
       </div>
     );
   }
@@ -23,6 +23,13 @@ const Details = () => {
         <h2>{`${pet.animal} — ${pet.breed} — ${pet.city}, ${pet.state}`}</h2>
         <button>Adopt {pet.name}</button>
         <p>{pet.description}</p>
+        <ul>
+          {pet.images.map((image) => (
+            <li key={image}>
+              <img src={image} key={image} alt="" />
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

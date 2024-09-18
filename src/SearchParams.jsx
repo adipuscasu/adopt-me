@@ -5,11 +5,11 @@ import Results from "./Results";
 const ANIMALS = ["dog", "cat", "bird", "rabbit", "reptile"];
 
 const SearchParams = () => {
+  const [pets, setPets] = useState([]);
   const [location, setLocation] = useState("");
   const [animal, setAnimal] = useState("");
   const [breed, setBreed] = useState("");
   const [breeds] = useBreedList(animal);
-  const [pets, setPets] = useState([]);
 
   useEffect(() => {
     requestPets();
@@ -63,15 +63,17 @@ const SearchParams = () => {
         <label htmlFor="breed">
           Breed
           <select
+            disabled={!breeds.length}
+            id="breed"
+            value={breed}
             onChange={(e) => setBreed(e.target.value)}
             onBlur={(e) => setBreed(e.target.value)}
-            id="breed"
-            disabled={!breeds.length}
-            value={breed}
           >
-            <option></option>
+            <option />
             {breeds.map((breed) => (
-              <option key={breed}>{breed}</option>
+              <option key={breed} value={breed}>
+                {breed}
+              </option>
             ))}
           </select>
         </label>
