@@ -1,10 +1,17 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import Carousel from "./Carousel";
 import fetchPet from "./fetchPet";
 
 const Details = () => {
   const { id } = useParams();
   const results = useQuery(["details", id], fetchPet);
+
+  const handleIndexClick = (e) => {
+    this.setState({
+      active: e.target.dataset.index,
+    });
+  };
 
   if (results.isLoading) {
     return (
@@ -18,18 +25,12 @@ const Details = () => {
 
   return (
     <div className="details">
+      <Carousel images={pet.images} />
       <div>
         <h1>{pet.name}</h1>
         <h2>{`${pet.animal} — ${pet.breed} — ${pet.city}, ${pet.state}`}</h2>
         <button>Adopt {pet.name}</button>
         <p>{pet.description}</p>
-        <ul>
-          {pet.images.map((image) => (
-            <li key={image}>
-              <img src={image} key={image} alt="" />
-            </li>
-          ))}
-        </ul>
       </div>
     </div>
   );
